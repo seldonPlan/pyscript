@@ -1,0 +1,21 @@
+{
+    "project_name": "DEFAULT App Name",
+    "pyscript_prefix": "pyscript_",
+    "project_default_config_root": "~/.config/pyscript",
+    "project_default_config_file": "default.config.toml",
+    "author": "AUTHOR_NOT_SET",
+    "homepage": "HOMEPAGE_NOT_SET",
+
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_module": "{{ cookiecutter.pyscript_prefix.lower().replace(' ', '_').replace('-', '_') + cookiecutter.project_slug }}",
+
+    "vscode_pythonPath": "${env:HOME}/bin/pyscriptenv/bin/python",
+    "vscode_buildPythonPath": "${env:HOME}/bin/pyscriptbuild/bin/python",
+    "vscode_blackPath": "${env:HOME}/.local/bin/black",
+    "vscode_flake8Path": "${env:HOME}/.local/bin/flake8",
+    "vscode_mypyPath": "${env:HOME}/.local/bin/mypy",
+    "vscode_isortPath": "${env:HOME}/.local/bin/isort",
+    "vscode_bumpversion": "${env:HOME}/.local/bin/bumpversion",
+    "install_vscode_project": ["yes", "no"],
+    "install_pre_commit_hooks": ["yes", "no"]
+}

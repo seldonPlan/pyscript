@@ -1,0 +1,33 @@
+[build-system]
+requires = ["flit_core >=3,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "{{ cookiecutter.project_module }}"
+author = "{{ cookiecutter.author }}"
+home-page = "{{ cookiecutter.homepage }}"
+requires = [
+    "click==7.1.2",
+    "colorama==0.4.4",
+    "pytomlpp==0.3.5",
+]
+requires-python=">=3.6"
+
+[tool.flit.scripts]
+# makes app executable by name upon install
+{{ cookiecutter.project_module }} = "{{ cookiecutter.project_module }}:__main__"
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.project_module }}:__main__"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '{{ cookiecutter.project_module }}/.*\.py$'
+
+[tool.isort]
+profile = "black"
+src_paths = ["{{ cookiecutter.project_module }}"]
+filter_files = true
+skip_gitignore = false
+
+[tool.flake8]
+# no support yet for flake8 in pyproject.toml, see .flake8 file

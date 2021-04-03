@@ -1,0 +1,15 @@
+# platform
+.DS_Store
+
+# ide
+*.sublime-workspace
+*.sublime-project
+*.vscode/
+
+# python
+*.egg-info
+build/
+dist/
+__pycache__/
+*.pyc
+.mypy_cache/

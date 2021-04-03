@@ -1,0 +1,46 @@
+fail_fast: false
+repos:
+- repo: local
+  hooks:
+  - id: no-dsstore
+    name: Check for .DS_Store files
+    entry: .DS_Store files not allowed
+    language: fail
+    files: '^(.*/)?\.DS_Store$'
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: "v3.4.0"
+  hooks:
+  - id: check-ast
+  - id: check-builtin-literals
+  - id: check-docstring-first
+  - id: check-merge-conflict
+  - id: check-json
+    exclude: '^\.vscode/'
+  - id: check-yaml
+  - id: check-toml
+    exclude: tests/packages/test-(bad-syntax|no-permission)/pyproject.toml
+  - id: debug-statements
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+- repo: https://github.com/psf/black
+  rev: "20.8b1"
+  hooks:
+  - id: black
+    # see pyproject.toml for black config
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: "v0.812"
+  hooks:
+  - id: mypy
+    additional_dependencies: [click==7.1.2,requests==2.25.1,trino==0.305.0,blessed==1.17.12]
+- repo: https://github.com/PyCQA/isort
+  rev: "5.7.0"
+  hooks:
+  - id: isort
+    # see pyproject.toml for isort config
+- repo: https://github.com/PyCQA/flake8
+  rev: "3.8.4"
+  hooks:
+  - id: flake8
+    # see .flake8 config, no pyproject.toml support (yet)
+    additional_dependencies: ["flake8-bugbear == 20.1.4"]
+    language_version: python3.9

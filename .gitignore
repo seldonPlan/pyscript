@@ -1,0 +1,13 @@
+# platform
+.DS_Store
+
+# ide
+.vscode/
+
+# python
+*.egg-info
+build/
+dist/
+__pycache__/
+*.pyc
+.mypy_cache/

@@ -1,0 +1,31 @@
+default_context:
+    # required fields
+    project_name: "My App"
+    author: "Author Name <author.name@example.com>"
+    homepage: "https://foo.bar.example.com"
+
+    # optional components
+    install_vscode_project: yes
+    install_pre_commit_hooks: yes
+
+    ############################################################################
+    ### meta values used in template generation
+    ### edit to change default behavior of generated template
+    ############################################################################
+    # pyscript_prefix: "pyscript_"
+    # project_default_config_root: "~/.config/pyscript"
+    # project_default_config_file: "default.config.toml"
+
+    ############################################################################
+    ### vscode workspace tool locations
+    ###  - can be safely ignored if `install_vscode_project` is set to "no"
+    ###  - can use vscode variable references (like `${env:HOME}`)
+    ###  - see https://code.visualstudio.com/docs/editor/variables-reference
+    ############################################################################
+    # vscode_pythonPath: "${env:HOME}/bin/pyscriptenv/bin/python"
+    # vscode_buildPythonPath: "${env:HOME}/bin/pyscriptbuild/bin/python"
+    # vscode_blackPath: "${env:HOME}/.local/bin/black"
+    # vscode_flake8Path: "${env:HOME}/.local/bin/flake8"
+    # vscode_mypyPath: "${env:HOME}/.local/bin/mypy"
+    # vscode_isortPath: "${env:HOME}/.local/bin/isort"
+    # vscode_bumpversion: "${env:HOME}/.local/bin/bumpversion"
