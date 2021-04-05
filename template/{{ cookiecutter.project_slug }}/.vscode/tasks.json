@@ -1,0 +1,83 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        // code quality checks
+        {
+            "label": "pre-commit check file",
+            "detail": "perform pre-commit run on current file",
+            "type": "shell",
+            "command": "pre-commit run --files ${file}",
+            "problemMatcher": [],
+            "group": "build",
+        },
+        {
+            "label": "pre-commit check all files",
+            "detail": "perform pre-commit run on all project files",
+            "type": "shell",
+            "command": "pre-commit run --all-files",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        // version management
+        /***********************************************************************
+         * grep matchers:
+         *   perl regexp (requires gnu-grep, black formatted file):
+         *      grep -Po '(?<=__version__ = \")\d+\.\d+\.\d+' $file
+         *   basic regexp (any grep, more lenient matching):
+         *      grep -o '[[:space:]]*__version__[[:space:]]*=[[:space:]]*"[0-9]\+\.[0-9]\+\.[0-9]\+"' $file | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+'
+         */
+        {
+            "label": "bump patch version",
+            "detail": "increment patch version in {{ cookiecutter.project_module }}/__init__.py __version__ attribute",
+            "type": "shell",
+            "command": "{{ cookiecutter.vscode_bumpversion }} --allow-dirty --no-commit --no-tag --no-configured-files --current-version \"$(grep -Po '(?<=__version__ = \\\")\\d+\\.\\d+\\.\\d+' ${workspaceFolder}/{{ cookiecutter.project_module }}/__init__.py)\" --list patch ${workspaceFolder}/{{ cookiecutter.project_module }}/__init__.py",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "bump minor version",
+            "detail": "increment minor version in {{ cookiecutter.project_module }}/__init__.py __version__ attribute",
+            "type": "shell",
+            "command": "{{ cookiecutter.vscode_bumpversion }} --allow-dirty --no-commit --no-tag --no-configured-files --current-version \"$(grep -Po '(?<=__version__ = \\\")\\d+\\.\\d+\\.\\d+' ${workspaceFolder}/{{ cookiecutter.project_module }}/__init__.py)\" --list minor ${workspaceFolder}/{{ cookiecutter.project_module }}/__init__.py",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "bump major version",
+            "detail": "increment major version in {{ cookiecutter.project_module }}/__init__.py __version__ attribute",
+            "type": "shell",
+            "command": "{{ cookiecutter.vscode_bumpversion }} --allow-dirty --no-commit --no-tag --no-configured-files --current-version \"$(grep -Po '(?<=__version__ = \\\")\\d+\\.\\d+\\.\\d+' ${workspaceFolder}/{{ cookiecutter.project_module }}/__init__.py)\" --list major ${workspaceFolder}/{{ cookiecutter.project_module }}/__init__.py",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        // build & install
+        {
+            "label": "clean",
+            "detail": "remove dist/ directory and all its contents",
+            "type": "shell",
+            "command": "rm -rf ${workspaceFolder}/dist",
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "build",
+            "detail": "use pyscriptbuild to create sdist and wheel artifacts in dist/ directory",
+            "type": "shell",
+            "command": "{{ cookiecutter.vscode_buildPythonPath }} -m build --skip-dependencies --no-isolation --wheel --sdist ${workspaceFolder}",
+            "problemMatcher": [],
+            "group": "build",
+            "dependsOn": [ "clean" ]
+        },
+        {
+            "label": "install",
+            "detail": "installs wheel artifact into pyscriptenv",
+            "type": "shell",
+            "command": "{{ cookiecutter.vscode_pythonPath }} -m pip install --no-deps --force-reinstall ${workspaceFolder}/dist/*.whl",
+            "problemMatcher": [],
+            "group": "build",
+            "dependsOn": [ "build" ]
+        }
+    ]
+}

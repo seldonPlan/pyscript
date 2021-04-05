@@ -7,6 +7,9 @@ if "{{ cookiecutter.install_vscode_project }}" == "no":
     print("removing vscode project files as requested...")
     shutil.rmtree(".vscode", ignore_errors=True)
 
+print("setting up project .gitignore...")
+shutil.move(".gitignore.tmpl", ".gitignore")
+
 if shutil.which("git") is not None:
     print("initializing git repo...")
     subprocess.run(["git", "init", "--quiet", "--initial-branch=develop"])

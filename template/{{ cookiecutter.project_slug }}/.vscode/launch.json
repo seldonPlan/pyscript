@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug {{ cookiecutter.project_slug }} cli",
+            "type": "python",
+            "request": "launch",
+            "module": "{{ cookiecutter.project_module }}",
+            // add args as needed
+            "args": [ "--show" ],
+            "console": "internalConsole",
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "folders": [
+        {
+            "path": ".."
+        }
+    ],
+    "settings": {
+        // using pyscriptenv interpreter
+        "python.pythonPath": "{{ cookiecutter.vscode_pythonPath }}",
+
+        // use pipx installed black
+        "python.formatting.blackPath": "{{ cookiecutter.vscode_blackPath }}",
+        "python.formatting.provider": "black",
+
+        // use pipx installed flake8, disable default pylint
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": false,
+        "python.linting.flake8Path": "{{ cookiecutter.vscode_flake8Path }}",
+        "python.linting.flake8Enabled": true,
+
+        // use pipx installed mypy
+        "python.linting.mypyPath": "{{ cookiecutter.vscode_mypyPath }}",
+        "python.linting.mypyEnabled": true,
+
+        // use pipx installed isort
+        "python.sortImports.path": "{{ cookiecutter.vscode_isortPath }}",
+        "[python]": {
+            // black format on save
+            "editor.formatOnSave": true,
+            "editor.codeActionsOnSave": {
+                // isort on save
+                "source.organizeImports": true,
+            }
+        },
+    },
+}

@@ -1,2 +1,10 @@
+# platform
 .DS_Store
+
+# python
+*.egg-info
 build/
+dist/
+__pycache__/
+*.pyc
+.mypy_cache/
