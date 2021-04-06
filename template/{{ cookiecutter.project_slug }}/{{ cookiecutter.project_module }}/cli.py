@@ -99,20 +99,21 @@ def _set_context(ctx, color, dry_run, show, default, config):
         except FileNotFoundError:
             click.secho(
                 (
-                    "WARNING: default config file not found,",
-                    " using internal configuration instead",
+                    "WARNING: default config file not found,"
+                    " using internal configuration instead"
                 ),
+                err=True,
                 fg="yellow",
             )
             ctx.obj["config"] = DEFAULT_CONFIG
 
 
 def _init_config_file(ctx, init, config):
-    """Short circuiting method that checks the init option flag,
-    and if set will attempt create new config file with default values.
-     - Will not overwrite an existing file.
-     - Outputs the file contents of new file or existing file.
-     - Exits app when done, ignoring any other flags or commands.
+    """Short circuiting method that checks the "--init" flag,
+    and, when set, attempts to create new config file with default values
+     - Will not overwrite an existing file
+     - Outputs the file contents of new file or existing file
+     - Exits app when done, ignoring any other flags or commands
     """
     if init:
         exists, path, content = init_config_file(config)
@@ -121,6 +122,7 @@ def _init_config_file(ctx, init, config):
                 f"default config {'exists' if exists else 'created'} "
                 f"at {path} with content:\n"
             ),
+            err=True,
             fg="yellow",
         )
         click.echo(content)
@@ -128,12 +130,15 @@ def _init_config_file(ctx, init, config):
 
 
 def _show(ctx):
-    """convenience method to print full context object if requested via the "show"
-    or "dry-run" flags. "dry-run" flag check also exits app if true
+    """convenience method to print full context object to STDERR if requested via
+    the "--show" or "--dry-run" flags.
+
+    "--dry-run" flag check also exits app when set
     """
     if ctx.obj["cli"]["show"] or ctx.obj["cli"]["dry_run"]:
         click.secho(
-            f"{json.dumps(ctx.obj,default=lambda o: str(o),sort_keys=True,indent=4)}"
+            f"{json.dumps(ctx.obj,default=lambda o: str(o),sort_keys=True,indent=4)}",
+            err=True,
         )
 
     if ctx.obj["cli"]["dry_run"]:
