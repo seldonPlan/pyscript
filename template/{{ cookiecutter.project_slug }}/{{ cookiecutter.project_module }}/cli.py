@@ -75,7 +75,7 @@ def _set_context(ctx, color, dry_run, show, default, config):
         color="auto" if color is None else color,
         dry_run=dry_run,
         show=show,
-        config_file=config,
+        config_file=DEFAULT_CONFIG_FILE if config is None else config,
         use_default_config=default,
     )
 
@@ -128,13 +128,12 @@ def _init_config_file(ctx, init, config):
 
 
 def _show(ctx):
-    """convenience method too print full context object if requested via the "show"
+    """convenience method to print full context object if requested via the "show"
     or "dry-run" flags. "dry-run" flag check also exits app if true
     """
     if ctx.obj["cli"]["show"] or ctx.obj["cli"]["dry_run"]:
         click.secho(
-            f"{json.dumps(ctx.obj,default=lambda o: str(o),sort_keys=True,indent=4)}",
-            fg="yellow",
+            f"{json.dumps(ctx.obj,default=lambda o: str(o),sort_keys=True,indent=4)}"
         )
 
     if ctx.obj["cli"]["dry_run"]:
