@@ -3,15 +3,13 @@ from typing import Optional, Tuple, Union
 
 import pytomlpp
 
+from .default import DEFAULT_CONFIG
+
 # fmt:off
 DEFAULT_CONFIG_FILE = (
     Path("{{ cookiecutter.project_default_config_root }}") / "{{ cookiecutter.project_slug }}" / "{{ cookiecutter.project_default_config_file }}"  # noqa: E501
 ).expanduser().resolve()
 # fmt:on
-
-# config object should be a standard python dict object with basic types
-# will be written out using toml writer
-DEFAULT_CONFIG: dict = {"foo": "bar"}
 
 
 def init_config_file(path: Optional[Union[Path, str]]) -> Tuple[bool, str, str]:
