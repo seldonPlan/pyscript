@@ -18,8 +18,7 @@ def init_config_file(path: Optional[Union[Path, str]]) -> Tuple[bool, str, str]:
     _exists: bool = _path.exists()
 
     if _exists:
-        with open(_path, mode="r") as existing_cfg:
-            _content = existing_cfg.read()
+        _content = pytomlpp.dumps(load_config_file(path))
     else:
         _content = pytomlpp.dumps(DEFAULT_CONFIG)
         if not _path.parent.exists():
@@ -31,17 +30,13 @@ def init_config_file(path: Optional[Union[Path, str]]) -> Tuple[bool, str, str]:
     return _exists, str(_path), _content
 
 
-def load_config_file(path: Optional[Path]) -> dict:
-    output = {**DEFAULT_CONFIG}
+def load_config_file(path) -> dict:
+    _path = Path(path).expanduser().resolve()
 
-    if path is None:
-        return output
+    with open(_path, mode="r") as cfg:
+        return pytomlpp.load(cfg)
 
-    try:
-        with open(path, mode="r") as cfg:
-            output = pytomlpp.load(cfg)
-    except FileNotFoundError:
-        if str(path) != str(DEFAULT_CONFIG_FILE):
-            raise
 
-    return output
+def load_credentials(path, env: str) -> Tuple[str, str]:
+    creds = load_config_file(path)
+    return (creds["env"][env]["user"], creds["env"][env]["password"])
