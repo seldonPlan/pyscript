@@ -24,7 +24,7 @@ def set_context(ctx, color, dry_run, show, default, config_file, env):
 
 
 def init(ctx, force, config_file):
-    exists, path, content = config.persist_config(config_file)
+    exists, path, content = config.persist_config(config_file, force)
     op = "created" if not exists else ("overwritten" if force else "exists")
 
     click.secho(
