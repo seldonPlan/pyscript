@@ -12,31 +12,31 @@ DEFAULT_CONFIG_FILE = (
 # fmt:on
 
 
-def init_config_file(path: Optional[Union[Path, str]]) -> Tuple[bool, str, str]:
-    _path: Path = Path(DEFAULT_CONFIG_FILE if path is None else path)
-    _content: str = ""
-    _exists: bool = _path.exists()
+def persist_config(
+    path: Optional[Union[Path, str]], force: bool = False
+) -> Tuple[bool, str, str]:
+    p: Path = Path(DEFAULT_CONFIG_FILE if path is None else path)
+    content: str = ""
+    exists: bool = p.exists()
 
-    if _exists:
-        _content = pytomlpp.dumps(load_config_file(path))
+    if exists and not force:
+        content = pytomlpp.dumps(load_config(p))
     else:
-        _content = pytomlpp.dumps(DEFAULT_CONFIG)
-        if not _path.parent.exists():
-            _path.parent.mkdir(parents=True, exist_ok=True)
+        content = pytomlpp.dumps(DEFAULT_CONFIG)
+        if not p.parent.exists():
+            p.parent.mkdir(parents=True, exist_ok=True)
 
-        with open(_path, mode="w") as new_cfg:
-            new_cfg.write(_content)
+        with open(p, mode="w") as new_cfg:
+            new_cfg.write(content)
 
-    return _exists, str(_path), _content
+    return exists, str(p), content
 
 
-def load_config_file(path) -> dict:
-    _path = Path(path).expanduser().resolve()
-
-    with open(_path, mode="r") as cfg:
+def load_config(path) -> dict:
+    with open(Path(path).expanduser().resolve(), mode="r") as cfg:
         return pytomlpp.load(cfg)
 
 
 def load_credentials(path, env: str) -> Tuple[str, str]:
-    creds = load_config_file(path)
+    creds = load_config(path)
     return (creds["env"][env]["user"], creds["env"][env]["password"])
