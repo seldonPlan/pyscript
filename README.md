@@ -92,8 +92,15 @@ ${app_name}/
    ├── pyscript_${app_name}/
    │   ├── __init__.py
    │   ├── __main__.py
-   │   ├── cli.py
-   │   ├── config.py
+   │   ├── cli/
+   │   │   ├── __init__.py
+   │   │   ├── root.py
+   │   │   ├── utils.py
+   │   │   └── ...
+   │   ├── config/
+   │   │   ├── __init__.py
+   │   │   ├── default.py
+   │   │   └── ...
    │   └── ...
    ├── .pre-commit-config.yaml
    ├── .flake8
