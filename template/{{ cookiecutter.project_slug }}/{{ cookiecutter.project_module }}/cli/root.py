@@ -1,8 +1,9 @@
 from pathlib import Path
+from typing import Optional
 
 import click
 
-from .. import config
+from .. import config, logging
 from . import utils
 
 
@@ -15,7 +16,16 @@ from . import utils
 @utils.root_params
 @click.pass_context
 def root(
-    ctx: click.Context, color, dry_run, show, config_file, config_dir, default, env
+    ctx: click.Context,
+    color: Optional[bool],
+    dry_run: bool,
+    show: bool,
+    verbose: int,
+    quiet: bool,
+    config_file: Optional[str],
+    config_dir: str,
+    default: bool,
+    env: str,
 ):
     """root command, sets up base application state used by sub-commands
 
@@ -46,6 +56,7 @@ def root(
         color="auto" if color is None else color,
         dry_run=dry_run,
         show=show,
+        log_level=logging.verbosity(verbose, quiet),
         config_dir=Path(config_dir).expanduser().resolve(),
         force_config_file=config_file,
         force_default=default,
@@ -58,6 +69,10 @@ def root(
         env.lower(), default, config_dir, config_file
     )
     ctx.obj["config"] = config.merge_configs(ctx.obj["config_sources"])
+
+    # configure logging, setup level, file logging, output options
+    # options documented in logging module
+    logging.configRootLogger(ctx.obj["root"]["log_level"]["value"])
 
     # default behavior without subcommand
     if ctx.invoked_subcommand is None:
