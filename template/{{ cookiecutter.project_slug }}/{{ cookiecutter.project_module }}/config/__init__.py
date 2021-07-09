@@ -15,7 +15,9 @@ __all__ = [
 
 
 DEFAULT_CONFIG_PATH = (
-    Path("{{ cookiecutter.project_default_config_root }}/{{ cookiecutter.project_slug }}").expanduser().resolve()  # noqa: E501
+    Path("{{ cookiecutter.project_default_config_root }}/{{ cookiecutter.project_slug }}")    # noqa: E501
+    .expanduser()
+    .resolve()
 )
 DEFAULT_CONFIG_FILE = Path("{{ cookiecutter.project_default_config_file }}")
 
