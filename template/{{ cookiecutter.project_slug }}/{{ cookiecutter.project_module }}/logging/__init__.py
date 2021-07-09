@@ -45,7 +45,7 @@ __all__ = [
 ]
 # fmt: on
 
-_default_root_name: str = "{{ cookiecutter.project_module }}"
+_default_root_name: str = "{{ cookiecutter.project_slug }}"
 _default_timestamp_format: str = "%Y-%m-%d %H:%M:%S"
 _default_logger: Optional[logging.Logger] = None
 _default_cli_handler: Optional[logging.Handler] = None
