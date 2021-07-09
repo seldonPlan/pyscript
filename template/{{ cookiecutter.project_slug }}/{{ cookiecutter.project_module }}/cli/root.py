@@ -82,5 +82,9 @@ def root(
 
     # default behavior without subcommand
     if ctx.invoked_subcommand is None:
-        click.secho("{{ cookiecutter.project_module }} cli works!", err=True, fg="yellow")  # noqa: E501
+        click.secho(
+            "{{ cookiecutter.project_module }} cli works!",
+            err=True,
+            fg="yellow",
+        )
         utils.show(ctx)
