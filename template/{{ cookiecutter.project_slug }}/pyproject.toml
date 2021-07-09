@@ -29,5 +29,13 @@ src_paths = ["{{ cookiecutter.project_module }}"]
 filter_files = true
 skip_gitignore = false
 
+[tool.mypy]
+ignore_missing_imports = true
+follow_imports = "silent"
+show_column_numbers = true
+show_error_context = true
+show_error_code = true
+pretty = true
+
 [tool.flake8]
-# no support yet for flake8 in pyproject.toml, see .flake8 file
+# no support (yet) for flake8 in pyproject.toml, see .flake8 file

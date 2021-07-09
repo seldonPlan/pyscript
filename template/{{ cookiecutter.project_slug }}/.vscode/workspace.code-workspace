@@ -14,6 +14,11 @@
 
         // use pipx installed flake8, disable default pylint
         "python.linting.enabled": true,
+        "python.linting.ignorePatterns": [
+            ".vscode/*.py",
+            "**/site-packages/**/*",
+            "**/Versions/**/lib/**/*"
+        ],
         "python.linting.pylintEnabled": false,
         "python.linting.flake8Path": "{{ cookiecutter.vscode_flake8Path }}",
         "python.linting.flake8Enabled": true,

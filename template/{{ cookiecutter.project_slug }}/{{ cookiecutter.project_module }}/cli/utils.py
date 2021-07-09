@@ -56,10 +56,22 @@ spec = {
             help="Configured environment name, informs what config files to merge.",
             metavar="ENV_NAME",
         ),
+        "verbose": click.option(
+            "-v",
+            "--verbose",
+            count=True,
+            help="Log verbosity, specify multiple times to increase verbosity",
+        ),
+        "quiet": click.option(
+            "-q",
+            "--quiet",
+            is_flag=True,
+            help="Suppress all but critical error messages (overrides verbosity flags)",
+        ),
         "version": click.version_option(
             __version__,
             "--version",
-            "-v",
+            "-V",
             message="v%(version)s",
         ),
     },
@@ -74,6 +86,8 @@ def root_params(fn):
     fn = spec["root"]["color"](fn)
     fn = spec["root"]["dry-run"](fn)
     fn = spec["root"]["show"](fn)
+    fn = spec["root"]["verbose"](fn)
+    fn = spec["root"]["quiet"](fn)
     fn = spec["root"]["config"](fn)
     fn = spec["root"]["dir"](fn)
     fn = spec["root"]["default"](fn)

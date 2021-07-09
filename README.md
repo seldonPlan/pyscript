@@ -101,6 +101,9 @@ ${app_name}/
    │   │   ├── __init__.py
    │   │   ├── default.py
    │   │   └── ...
+   │   ├── logging/
+   │   │   ├── __init__.py
+   │   │   └── ...
    │   └── ...
    ├── .pre-commit-config.yaml
    ├── .flake8
@@ -151,6 +154,14 @@ profile = "black"
 src_paths = ["pyscriptenv_${app_name}"]
 filter_files = true
 skip_gitignore = false
+
+[tool.mypy]
+ignore_missing_imports = true
+follow_imports = "silent"
+show_column_numbers = true
+show_error_context = true
+show_error_code = true
+pretty = true
 
 [tool.flake8]
 # no support yet for flake8 in pyproject.toml, see .flake8 file
