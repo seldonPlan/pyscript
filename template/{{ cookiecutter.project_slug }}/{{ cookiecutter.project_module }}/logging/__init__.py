@@ -83,7 +83,7 @@ def verbosity(verbose: int, quiet: bool) -> dict[str, Union[str, int]]:
     if verbose == 1:
         return {"name": "INFO", "value": logging.INFO}
 
-    if verbose == 2:
+    if verbose >= 2:
         return {"name": "DEBUG", "value": logging.DEBUG}
 
     # default level
