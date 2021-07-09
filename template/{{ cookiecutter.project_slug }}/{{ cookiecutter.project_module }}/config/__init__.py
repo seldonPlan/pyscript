@@ -11,7 +11,6 @@ __all__ = [
     "source_list", "merge_configs", "load_toml",
     "init_config_file", "init_config_dir",
 ]
-# fmt: on
 
 
 DEFAULT_CONFIG_PATH = (
@@ -19,7 +18,8 @@ DEFAULT_CONFIG_PATH = (
     .expanduser()
     .resolve()
 )
-DEFAULT_CONFIG_FILE = Path("{{ cookiecutter.project_default_config_file }}")
+DEFAULT_CONFIG_FILE = Path("{{ cookiecutter.project_default_config_file }}")  # noqa: E501
+# fmt: on
 
 
 def source_list(
