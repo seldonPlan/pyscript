@@ -5,6 +5,15 @@ import pytomlpp
 
 from .default import DEFAULT_CONFIG
 
+# fmt: off
+__all__ = [
+    "DEFAULT_CONFIG", "DEFAULT_CONFIG_PATH", "DEFAULT_CONFIG_FILE",
+    "source_list", "merge_configs", "load_toml",
+    "init_config_file", "init_config_dir",
+]
+# fmt: on
+
+
 DEFAULT_CONFIG_PATH = (
     Path("{{ cookiecutter.project_default_config_root }}/{{ cookiecutter.project_slug }}").expanduser().resolve()  # noqa: E501
 )
@@ -12,7 +21,7 @@ DEFAULT_CONFIG_FILE = Path("{{ cookiecutter.project_default_config_file }}")
 
 
 def source_list(
-    env: str, default: bool, config_dir: str, config_file: Optional[Path]
+    env: str, default: bool, config_dir: str, config_file: Optional[str]
 ) -> list[Union[Path, str]]:
     if default:
         return ["INTERNAL"]

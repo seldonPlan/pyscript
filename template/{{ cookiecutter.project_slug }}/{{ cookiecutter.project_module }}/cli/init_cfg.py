@@ -3,8 +3,7 @@ from pathlib import Path
 import click
 
 from .. import config
-from ..config import DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_PATH
-from ..config.default import DEFAULT_CONFIG
+from ..config import DEFAULT_CONFIG, DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_PATH
 from . import utils
 
 
