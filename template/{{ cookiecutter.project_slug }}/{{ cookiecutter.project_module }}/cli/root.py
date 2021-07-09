@@ -30,20 +30,26 @@ def root(
     """root command, sets up base application state used by sub-commands
 
     responsible for:
-    - output styling and verbosity
-      + `color` output management for all click.secho/click.style functions
-      + `dry_run` flag for sub-commands to implement (use with utils.show function)
-      + `show` flag for sub-commands to print config (use with utils.show function)
-    - configuration management
-      + `config_file` force configuration load from specified file only
-      + `default` forces configuration load from internal values only
-      + `config_dir` use configuration files from specified directory
-    - environment management
-      + `env` value identifies which config files to load and merge for app config
-         (superseded by `config_file` and `default` options)
-      + maintains list of configuration sources used
-    - context initialization
-      + instantiates a click.Context object to store configuration, and cli params"""
+     * output styling and verbosity
+       - `color` output management for all click.secho/click.style functions
+       - `dry_run` flag for sub-commands to implement (use with utils.show function)
+       - `show` flag for sub-commands to print config (use with utils.show function)
+       - `verbose` flag, use with logging library module to manage output verbosity
+       - `quiet` flag, use with logging library module to manage output verbosity
+
+     * configuration management
+       - `config_file` force configuration load from specified file only
+       - `default` forces configuration load from internal values only
+       - `config_dir` use configuration files from specified directory
+
+     * environment management
+       - `env` value identifies which config files to load and merge for app config
+          (superseded by `config_file` and `default` options)
+       - maintains list of configuration sources used
+
+     * context initialization
+       - instantiates a click.Context object to store configuration, and cli params
+    """
 
     # automatically handle all color options with context attribute
     ctx.color = color
